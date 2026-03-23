@@ -1,23 +1,17 @@
 pipeline {
-    agent  any
-    tools {
-        maven 'Maven-3'
-    }
+    agent any // On utilise l'agent Jenkins normal
+
     stages {
+        stage('Build Maven') {
             steps {
-                sh 'mvn clean package'
+                // On télécharge et utilise Maven juste pour cette commande
+                sh 'docker run --rm -v ${WORKSPACE}:/app -w /app maven:3.9.6-eclipse-temurin-17 mvn clean package'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t my-app:1.0 .'
-            }
-        }
-
-        stage('Tag Image') {
-            steps {
-                sh 'docker tag my-app:1.0 moezog/my-app:1.0'
+                sh 'docker build -t moezog/my-app:1.0 .'
             }
         }
 
