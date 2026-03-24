@@ -17,7 +17,7 @@ pipeline {
         stage('Push Image') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-credentials',
+                    credentialsId: 'first_jenkins',
                     usernameVariable: 'moezog',
                     passwordVariable: 'Sankou72003'
                 )]) {                                          // ✅ accolade ouvrante
