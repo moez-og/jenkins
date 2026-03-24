@@ -17,9 +17,9 @@ pipeline {
         stage('Push Image') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'first_jenkins',
-                    usernameVariable: 'moezog',
-                    passwordVariable: 'Sankou72003'
+            credentialsId: 'first_jenkins',  // ← l'ID que tu as créé
+            usernameVariable: 'DOCKER_USER', // ← Jenkins met 'moezog' ici
+            passwordVariable: 'DOCKER_PASS'
                 )]) {                                          // ✅ accolade ouvrante
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
                     sh 'docker push moezog/my-app:1.0'
