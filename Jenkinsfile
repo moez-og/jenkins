@@ -5,7 +5,7 @@ pipeline {
         stage('Build Maven') {
             steps {
                 // On télécharge et utilise Maven juste pour cette commande
-                sh 'docker run --rm -v $(pwd):/app -w /app maven:3.9.6-eclipse-temurin-17 mvn clean package'            }
+                sh  'mvn clean package'            }
         }
 
         stage('Build Docker Image') {
