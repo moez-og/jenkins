@@ -15,9 +15,15 @@ pipeline {
         }
 
         stage('Push Image') {
-            steps {
-                sh 'docker push moezog/my-app:1.0'
-            }
+           steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-credentials',
+            usernameVariable: 'moezog',
+            passwordVariable: 'Sankou72003'
+        )]) {
+            sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+            sh 'docker push moezog/my-app:1.0'
+        }
         }
     }
 }
