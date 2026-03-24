@@ -1,11 +1,11 @@
 pipeline {
-    agent any // On utilise l'agent Jenkins normal
+    agent any
 
     stages {
         stage('Build Maven') {
             steps {
-                // On télécharge et utilise Maven juste pour cette commande
-                sh  'mvn clean package'            }
+                sh 'mvn clean package'
+            }
         }
 
         stage('Build Docker Image') {
@@ -13,17 +13,18 @@ pipeline {
                 sh 'docker build -t moezog/my-app:1.0 .'
             }
         }
-    
+
         stage('Push Image') {
-           steps {
-        withCredentials([usernamePassword(
-            credentialsId: 'dockerhub-credentials',
-            usernameVariable: 'moezog',
-            passwordVariable: 'Sankou72003'
-        )])
-            sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-            sh 'docker push moezog/my-app:1.0'
-        }
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-credentials',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {                                          // ✅ accolade ouvrante
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    sh 'docker push moezog/my-app:1.0'
+                }                                             // ✅ accolade fermante
+            }
         }
     }
 }
