@@ -13,14 +13,14 @@ pipeline {
                 sh 'docker build -t moezog/my-app:1.0 .'
             }
         }
-
+    
         stage('Push Image') {
            steps {
         withCredentials([usernamePassword(
             credentialsId: 'dockerhub-credentials',
             usernameVariable: 'moezog',
             passwordVariable: 'Sankou72003'
-        )]) {
+        )])
             sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
             sh 'docker push moezog/my-app:1.0'
         }
