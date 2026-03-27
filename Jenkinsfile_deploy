@@ -1,0 +1,19 @@
+pipeline{
+    agent any
+    stages{
+        stage('deploy to dev/stage with docker compose') {
+            steps{
+                sh 'docker compose down' // stop the container if it's already running
+                sh 'docker compose pull'
+                sh 'docker compose up -d' // start
+                //  the container in detached mode
+                sh 'docker compose logs --tail=20'
+                echo 'deployment jawo bahi'
+            }
+        }
+    }
+    post {
+        always {
+            sh 'chouf el console w lawij a3la el execution'}
+    }
+}
