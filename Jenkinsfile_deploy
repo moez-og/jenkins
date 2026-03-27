@@ -3,11 +3,11 @@ pipeline{
     stages{
         stage('deploy to dev/stage with docker compose') {
             steps{
-                sh 'docker compose down' // stop the container if it's already running
-                sh 'docker compose pull'
-                sh 'docker compose up -d' // start
+                sh 'docker compose -f docker-compose.app.yml down' // stop the container if it's already running
+                sh 'docker compose -f docker-compose.app.yml pull'
+                sh 'docker compose -f docker-compose.app.yml up -d' // start
                 //  the container in detached mode
-                sh 'docker compose logs --tail=20'
+                sh 'docker compose -f docker-compose.app.yml logs --tail=20'
                 echo 'deployment jawo bahi'
             }
         }
