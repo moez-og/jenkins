@@ -14,6 +14,6 @@ pipeline{
     }
     post {
         always {
-            sh 'chouf el console w lawij a3la el execution'}
+            echo 'chouf el console w lawij a3la el execution'}
     }
 }
