@@ -1,7 +1,7 @@
 version : '3.8'
 services:
   my-app:
-    image: moezog/my-app:1.0
+    image: moezog/my-app:latest
     container_name: my-app-dev
     restart: no #unless-stopped 
     #hathi bach khan isyr crach lil container ya3mil restart automaticaly 

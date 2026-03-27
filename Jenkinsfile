@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        IMAGE_NAME = "moezog/my-app"
+        TAG = "${BUILD_NUMBER}"
+    }
     tools {
         maven 'Maven 3.9.0' // le nom que tu as donné dans Jenkins
     }
@@ -14,7 +18,9 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t moezog/my-app:1.0 .'
+                sh 'docker build -t ${IMAGE_NAME}:${TAG} .'
+                sh 'docker tag ${IMAGE_NAME}:${TAG} ${IMAGE_NAME}:latest'
+ 
             }
         }
 
@@ -26,9 +32,17 @@ pipeline {
             passwordVariable: 'DOCKER_PASS'
                 )]) {                                          // ✅ accolade ouvrante
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                    sh 'docker push moezog/my-app:1.0'
+                    sh 'docker push ${IMAGE_NAME}:${TAG}'
+                    sh 'docker push ${IMAGE_NAME}:latest'
                 }                                             // ✅ accolade fermante
             }
         }
     }
+
+    post {
+        success {
+            echo "Build successful! Image pushed as ${IMAGE_NAME}:${TAG}"
+        }
+    }
+
 }
