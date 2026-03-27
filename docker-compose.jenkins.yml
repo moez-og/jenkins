@@ -4,7 +4,7 @@ services:
   jenkins:
     image: jenkins/jenkins:lts
     container_name: jenkins
-    user: root   # 🔥 IMPORTANT (accès docker)
+    user: root  
     ports:
       - "9090:8080"
       - "50001:50000"
