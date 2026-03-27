@@ -5,6 +5,11 @@ pipeline {
     }
 
     stages {
+        stage('Clean') {
+            steps {
+                deleteDir()   // 🔥 supprime workspace
+            }
+        }
         stage('Build Maven') {
             steps {
                 sh 'mvn clean package'
