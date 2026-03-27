@@ -21,7 +21,7 @@ pipeline {
         stage('Push Image') {
             steps {
                 withCredentials([usernamePassword(
-            credentialsId: 'first_jenkins',  // ← l'ID que tu as créé
+            credentialsId: 'first_jenkin',  // ← l'ID que tu as créé
             usernameVariable: 'DOCKER_USER', // ← Jenkins met 'moezog' ici
             passwordVariable: 'DOCKER_PASS'
                 )]) {                                          // ✅ accolade ouvrante
